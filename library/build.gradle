@@ -1,7 +1,2 @@
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
-
-dependencies {
-    api 'net.java.dev.jna:jna:5.15.0'
-    implementation 'net.java.dev.jna:jna:5.15.0'
-}

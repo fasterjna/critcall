@@ -1,0 +1,76 @@
+subprojects {
+
+    apply plugin: 'java-library'
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    group = 'fasterjna'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        testImplementation platform('org.junit:junit-bom:5.10.0')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+}
+
+project(':library') {
+
+    apply plugin: 'signing'
+    apply plugin: 'maven-publish'
+
+    tasks.withType(Javadoc).configureEach { enabled = false }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                groupId = 'io.github.fasterjna'
+                artifactId = "fasterjna-critcall"
+                version = version
+                from components.java
+                pom {
+                    name = 'io.github.fasterjna'
+                    description = project.description
+                    url = 'https://github.com/fasterjna/critcall'
+                    licenses {
+                        license {
+                            name = 'BSD 3-Clause \"New\" or \"Revised\" License'
+                            url = 'http://opensource.org/licenses/BSD-3-Clause'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'Tianscar'
+                            name = 'Naoko Mitsurugi'
+                            email = 'tianscar@protonmail.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git@github.com/fasterjna/critcall.git'
+                        developerConnection = 'scm:git:git@github.com/fasterjna/critcall.git'
+                        url = 'https://github.com/fasterjna/critcall'
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        sign(publishing.publications.mavenJava)
+    }
+
+}

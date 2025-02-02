@@ -44,7 +44,7 @@ project(':library') {
                 from components.java
                 pom {
                     name = 'io.github.fasterjna'
-                    description = 'Java critical native function invoker based on JVMCI'
+                    description = 'Java critical FFI based on JVMCI'
                     url = 'https://github.com/fasterjna/critcall'
                     licenses {
                         license {
